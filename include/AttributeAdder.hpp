@@ -15,10 +15,14 @@
 namespace betterGraph{
 	
 	
-	template<typename GraphType>
+	template<typename VertexType, typename EdgeType>
 	class AttributeAdder{
 	protected : 
-		
+		typedef boost::adjacency_list<
+			boost::listS, boost::listS, boost::undirectedS, 
+			VertexType,
+			EdgeType, 
+			boost::no_property > GraphType;
 		typedef typename boost::graph_traits<GraphType>::vertex_iterator VertexIterator;
 		typedef typename boost::graph_traits<GraphType>::vertex_descriptor Vertex;
 		typedef typename boost::graph_traits<GraphType>::edge_descriptor Edge;
@@ -26,8 +30,10 @@ namespace betterGraph{
 		
 	public :
 		AttributeAdder(){};
-		
-		virtual void add(GraphType *arg1, Vertex* vertex_out, void* nodeAttribute){};
+		virtual void add(GraphType& arg1, Vertex& vertex_out, const VertexType& nodeAttribute){};
+		virtual void add(GraphType& arg1, Edge& out, const EdgeType& nodeAttribute){};
 		
 	};
 }
+
+#endif
