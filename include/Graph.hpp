@@ -83,6 +83,7 @@ namespace betterGraph{
 			//vertices access all the vertix
 			//Classify them in order
 			int i = 0;
+			out << getNumVertices() << std::endl;
 			for (vp = boost::vertices(_graph); vp.first != vp.second; ++vp.first) {
 				Vertex v = *vp.first;
 				vec.push_back(v);
@@ -104,8 +105,43 @@ namespace betterGraph{
 		};
 		
 		
-		void read(std::istream& in){
+		void read(std::ifstream& in){
 			clear();
+			std::vector<Vertex> vec;
+			std::vector<VertexType> vectyp;
+			int garbage;
+			
+			int num_vertex = 0;
+			in >> num_vertex;
+			std::cout << "Num vertex " << num_vertex << std::endl;
+			for(size_t i = 0 ; i < num_vertex ; ++i){
+				Vertex v;
+				vec.push_back(v);
+				
+				in >> garbage;
+				std::cout << "Garbage " << garbage << std::endl;
+				VertexType vt;
+				in >> vt;
+				vectyp.push_back(vt);
+			}
+			
+			for(size_t i = 0 ; i < vec.size() ; ++i){
+				addVertex(vec[i], vectyp[i]);
+			}
+			
+			int i = 0;
+			while(!in.eof()){
+				int index;
+				int index2;
+				in >> index;
+				if(index == num_vertex){
+					in >> index;
+				}
+				in >> index2;
+				std::cout << "links " << index << " " << index2 << std::endl;
+				Edge e;
+				addEdge(vec[index], vec[index2], e);
+			}
 			
 			
 			
@@ -113,7 +149,7 @@ namespace betterGraph{
 		
 	private:
 		void write(std::ostream& out, int index, const VertexType& vertex){
-			out << " " << index << vertex << std::endl;
+			out << index <<" " << vertex << std::endl;
 		};
 		
 			

@@ -4,18 +4,21 @@
 
 class Node{
 public:
-	const static int i = 0;
+	int i;
+	std::string str;
+	Node() : i(0), str("yo"){}
+	Node(int ii) : i(ii), str("meuf"){}
 	
 };
 
 std::istream& operator>>(std::istream& in, Node &p){
 	
-	return in;
+	in >> p.i ; in >> p.str; std::cout << "pi" << p.i << " str " << p.str <<std::endl; return in;
 }
 
 std::ostream& operator<<(std::ostream& in, const Node &p){
 	
-	return in << p.i;
+	return in << p.i << " " <<p.str;
 }
 
 
@@ -41,6 +44,8 @@ namespace betterGraph{
 		AttributeAdder(){};
 		virtual void add(GraphType& arg1, Vertex& vertex_out, const Node& nodeAttribute){
 			std::cout << "BOUWA Node" << std::endl;
+			arg1[vertex_out].i = nodeAttribute.i;
+			arg1[vertex_out].str = nodeAttribute.str;
 		};
 		virtual void add(GraphType& arg1, Edge_type& out, const Edge& nodeAttribute){
 			std::cout << "BOUWA Edge" << std::endl;
@@ -67,8 +72,8 @@ int main(int argc, char **argv) {
 	Vertex dad;
 	Vertex son;
 	graph.addVertex(dad, Node());
-	graph.addVertex(son, dad, Node());
-	graph.addVertex(son, dad, Node());
+	graph.addVertex(son, dad, Node(1));
+	graph.addVertex(son, dad, Node(2));
 	
 	std::cout << "3 Node : " << graph.getNumVertices() << std::endl;
 	std::cout << "2 Edges : " << graph.getNumEdges() << std::endl;
@@ -80,6 +85,15 @@ int main(int argc, char **argv) {
 	
 	std::cout << "0 Node : " << graph.getNumVertices() << std::endl;
 	std::cout << "0 Edges : " << graph.getNumEdges() << std::endl;
+	
+	std::ifstream in("bob.txt");
+	graph.read(in);
+	
+	std::cout << "3 Node : " << graph.getNumVertices() << std::endl;
+	std::cout << "2 Edges : " << graph.getNumEdges() << std::endl;
+	
+	std::ofstream outt("bob2.txt");
+	graph.write(outt);
 	
 	
 	return 0;
