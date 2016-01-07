@@ -15,7 +15,6 @@
 		
 namespace betterGraph{
 	
-	
 	template < typename VertexType, typename EdgeType>
 	class Graph{
 	protected :
