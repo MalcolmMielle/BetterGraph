@@ -30,7 +30,6 @@ namespace betterGraph{
 		typedef typename boost::graph_traits<GraphType>::edge_descriptor Edge;
 		typedef typename boost::graph_traits<GraphType>::out_edge_iterator EdgeIterator;
 		
-		int _marge;
 		GraphType _graph;
 		AttributeAdder<VertexType, EdgeType> _attribute_adder;
 		
@@ -39,13 +38,11 @@ namespace betterGraph{
 		Graph() : _marge(5){};
 		
 		
-		virtual ~Graph(){/*std::cout << "Removing grah place with " <<getNumVertices() << " nodes " << std::endl;*/}
+		virtual ~Graph(){}
 		
 		int getNumVertices() const {return boost::num_vertices(_graph);}
 		GraphType& getGraph(){return _graph;}
-		int getMarge(){return _marge;}
 		const GraphType& getGraph() const{return _graph;}
-		int getMarge() const {return _marge;}
 		int getNumEdges() const {return boost::num_edges(_graph);}
 		/* Return the number of edge linked to v */
 		int getNumEdges(const Vertex& v) const {return boost::out_degree(v, _graph);}
@@ -78,8 +75,6 @@ namespace betterGraph{
 		void clear(){_graph.clear();}
 		
 		void write(std::ostream& out);
-		
-		
 		void read(std::ifstream& in);
 		
 	private:
