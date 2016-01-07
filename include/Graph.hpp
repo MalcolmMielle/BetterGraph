@@ -34,7 +34,7 @@ namespace betterGraph{
 		
 		
 	public:
-		Graph() : _marge(5){};
+		Graph(){};
 		
 		
 		virtual ~Graph(){}
@@ -76,6 +76,9 @@ namespace betterGraph{
 		void write(std::ostream& out);
 		void read(std::ifstream& in);
 		
+		///@brief Reading an adjancy matrix
+		void read(char* matrix[], int x_size);
+		
 	private:
 		void write(std::ostream& out, int index, const VertexType& vertex){
 			out << index <<" " << vertex << std::endl;
@@ -116,9 +119,9 @@ namespace betterGraph{
 	inline bool Graph<VertexType, EdgeType>::addEdge(const Vertex& loop_index, const Vertex& index, Edge& out)
 	{
 		
-		bool exist = boost::edge(loop_index, index , _graph).second;
+		bool exist = boost::edge(loop_index, index, _graph).second;
 		if(exist == true){
-			out = boost::edge(loop_index, index , _graph).first;
+			out = boost::edge(loop_index, index, _graph).first;
 		}
 		else if(loop_index == index){
 			exist = true;
@@ -263,6 +266,28 @@ namespace betterGraph{
 		
 	}
 	
+	template<typename VertexType, typename EdgeType>
+	inline void Graph<VertexType, EdgeType>::read(char* matrix[], int x_size){
+		std::vector<Vertex> vec;
+		
+		for(size_t i = 0 ; i < x_size ; ++i){
+			Vertex v;
+			VertexType vt;
+			addVertex(v, vt);
+			vec.push_back(v);
+		}
+		
+		for(size_t i = 0 ; i < x_size ; ++i){
+			for(size_t j = 0 ; j < x_size ; ++j){
+				if(matrix[i][j] == 1){
+					Edge o;
+					addEdge(vec[i], vec[j], o);
+				}
+				
+			}
+		}
+		
+	}
 
 }
 #endif

@@ -34,6 +34,9 @@ namespace betterGraph{
 		virtual void add(GraphType& arg1, Edge& out, const EdgeType& nodeAttribute){};
 		
 	};
+	
+	
+	
 }
 
 #endif

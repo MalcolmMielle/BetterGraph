@@ -106,6 +106,37 @@ int main(int argc, char **argv) {
 	std::ofstream outt("bob2.txt");
 	graph.write(outt);
 	
+	graph.clear();
+	
+	char** matrix;
+	matrix = (char**)malloc(sizeof(char*) * 3);
+	for(int y = 0 ; y < 3 ;y++){
+		//malloc the 'x' dimension
+		matrix[y] = (char*)malloc(sizeof(char) * 3);
+		//iterate over the 'x' dimension
+		for( int x = 0 ; x < 3 ; x++){
+			//malloc the string in the data structure
+			matrix[y][x] = 0;
+
+		}
+	}
+	matrix[0][1] = 1;
+	matrix[0][2] = 1;
+	matrix[1][0] = 1;
+	matrix[2][0] = 1;
+	
+	graph.read(matrix, 3);
+	
+	std::cout << "3 Node : " << graph.getNumVertices() << std::endl;
+	std::cout << "2 Edges : " << graph.getNumEdges() << std::endl;
+	
+	for(int y = 0 ; y < 3 ;y++){
+		//malloc the 'x' dimension
+		free(matrix[y]);
+		//iterate over the 'x' dimension
+		
+	}
+	free(matrix);
 	
 	return 0;
 	

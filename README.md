@@ -10,7 +10,7 @@ Made to use in an intuitive way the boost graph and using iostream way to read a
 betterGraph::Graph<Node, Edge> graph;
 ```
 
-Node and Edge are custom class created by the user. The Graph are always undirected.
+Node and Edge are custom class created by the user. They need to have a default constructor with no argument. The Graph are always undirected.
 Since it uses boost it may be useful to declare those typedef
 
 ```
