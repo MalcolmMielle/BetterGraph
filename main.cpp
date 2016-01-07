@@ -7,13 +7,13 @@ public:
 	int i;
 	std::string str;
 	Node() : i(0), str("yo"){}
-	Node(int ii) : i(ii), str("meuf"){}
+	Node(int ii) : i(ii), str("person"){}
 	
 };
 
 std::istream& operator>>(std::istream& in, Node &p){
 	
-	in >> p.i ; in >> p.str; std::cout << "pi" << p.i << " str " << p.str <<std::endl; return in;
+	in >> p.i ; in >> p.str; return in;
 }
 
 std::ostream& operator<<(std::ostream& in, const Node &p){
@@ -23,8 +23,20 @@ std::ostream& operator<<(std::ostream& in, const Node &p){
 
 
 class Edge{
-	
+public:
+	double bob;
+	Edge() : bob(77.54){};
 };
+
+std::istream& operator>>(std::istream& in, Edge &p){
+	
+	return in >> p.bob;
+}
+
+std::ostream& operator<<(std::ostream& in, const Edge &p){
+	
+	return in << p.bob ;
+}
 
 namespace betterGraph{
 	template<>
@@ -43,12 +55,11 @@ namespace betterGraph{
 	public :
 		AttributeAdder(){};
 		virtual void add(GraphType& arg1, Vertex& vertex_out, const Node& nodeAttribute){
-			std::cout << "BOUWA Node" << std::endl;
 			arg1[vertex_out].i = nodeAttribute.i;
 			arg1[vertex_out].str = nodeAttribute.str;
 		};
 		virtual void add(GraphType& arg1, Edge_type& out, const Edge& nodeAttribute){
-			std::cout << "BOUWA Edge" << std::endl;
+			arg1[out].bob = nodeAttribute.bob;
 		};
 		
 	};

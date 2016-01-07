@@ -77,75 +77,10 @@ namespace betterGraph{
 		const EdgeType& operator[] (const Edge& v) const;
 		void clear(){_graph.clear();}
 		
-		void write(std::ostream& out){
-			std::pair<VertexIterator, VertexIterator> vp;
-			std::vector<Vertex> vec;
-			//vertices access all the vertix
-			//Classify them in order
-			int i = 0;
-			out << getNumVertices() << std::endl;
-			for (vp = boost::vertices(_graph); vp.first != vp.second; ++vp.first) {
-				Vertex v = *vp.first;
-				vec.push_back(v);
-				write(out, i, _graph[v]);
-				++i;
-			}
-			
-			for(size_t i = 0 ; i < vec.size() ; ++i){
-				out << getNumVertices() << std::endl;
-				for(size_t j = 0 ; j < vec.size() ; ++j){
-					
-					bool exist = boost::edge(vec[i], vec[j], _graph).second;
-					if(exist == true){
-						out << i << " " << j << std::endl;
-					}
-				}
-			}
-			
-		};
+		void write(std::ostream& out);
 		
 		
-		void read(std::ifstream& in){
-			clear();
-			std::vector<Vertex> vec;
-			std::vector<VertexType> vectyp;
-			int garbage;
-			
-			int num_vertex = 0;
-			in >> num_vertex;
-			std::cout << "Num vertex " << num_vertex << std::endl;
-			for(size_t i = 0 ; i < num_vertex ; ++i){
-				Vertex v;
-				vec.push_back(v);
-				
-				in >> garbage;
-				std::cout << "Garbage " << garbage << std::endl;
-				VertexType vt;
-				in >> vt;
-				vectyp.push_back(vt);
-			}
-			
-			for(size_t i = 0 ; i < vec.size() ; ++i){
-				addVertex(vec[i], vectyp[i]);
-			}
-			
-			int i = 0;
-			while(!in.eof()){
-				int index;
-				int index2;
-				in >> index;
-				if(index == num_vertex){
-					in >> index;
-				}
-				in >> index2;
-				std::cout << "links " << index << " " << index2 << std::endl;
-				Edge e;
-				addEdge(vec[index], vec[index2], e);
-			}
-			
-			
-			
-		}
+		void read(std::ifstream& in);
 		
 	private:
 		void write(std::ostream& out, int index, const VertexType& vertex){
@@ -263,6 +198,77 @@ namespace betterGraph{
 	{
 		return _graph[v];
 	}
+	
+	template<typename VertexType, typename EdgeType>
+	inline void Graph<VertexType, EdgeType>::write(std::ostream& out){
+		std::pair<VertexIterator, VertexIterator> vp;
+		std::vector<Vertex> vec;
+		//vertices access all the vertix
+		//Classify them in order
+		int i = 0;
+		out << getNumVertices() << std::endl;
+		for (vp = boost::vertices(_graph); vp.first != vp.second; ++vp.first) {
+			Vertex v = *vp.first;
+			vec.push_back(v);
+			write(out, i, _graph[v]);
+			++i;
+		}
+		
+		for(size_t i = 0 ; i < vec.size() ; ++i){
+			out << getNumVertices() << std::endl;
+			for(size_t j = 0 ; j < vec.size() ; ++j){
+				
+				bool exist = boost::edge(vec[i], vec[j], _graph).second;
+				if(exist == true){
+					out << i << " " << j << " " << _graph[boost::edge(vec[i], vec[j], _graph).first] << std::endl;
+				}
+			}
+		}
+		
+	}
+	
+	template<typename VertexType, typename EdgeType>
+	inline void Graph<VertexType, EdgeType>::read(std::ifstream& in){
+		clear();
+		std::vector<Vertex> vec;
+		std::vector<VertexType> vectyp;
+		int garbage;
+		
+		int num_vertex = 0;
+		in >> num_vertex;
+		for(size_t i = 0 ; i < num_vertex ; ++i){
+			Vertex v;
+			vec.push_back(v);
+			
+			in >> garbage;
+			VertexType vt;
+			in >> vt;
+			vectyp.push_back(vt);
+		}
+		
+		for(size_t i = 0 ; i < vec.size() ; ++i){
+			addVertex(vec[i], vectyp[i]);
+		}
+		
+		int i = 0;
+		while(!in.eof()){
+			int index;
+			int index2;
+			in >> index;
+			if(index == num_vertex){
+				in >> index;
+			}
+			in >> index2;
+			
+			EdgeType et;
+			in >> et;
+			Edge e;
+			addEdge(vec[index], vec[index2], e);
+		}
+
+		
+	}
+	
 
 }
 #endif
