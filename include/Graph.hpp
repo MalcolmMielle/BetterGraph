@@ -40,42 +40,82 @@ namespace betterGraph{
 		
 		
 		virtual ~Graph(){/*std::cout << "Removing grah place with " <<getNumVertices() << " nodes " << std::endl;*/}
-		virtual int getNumVertices() const {return boost::num_vertices(_graph);}
-		virtual GraphType& getGraph(){return _graph;}
-		virtual int getMarge(){return _marge;}
-		virtual const GraphType& getGraph() const{return _graph;}
-		virtual int getMarge() const {return _marge;}
-		virtual int getNumEdges() const {return boost::num_edges(_graph);}
+		
+		int getNumVertices() const {return boost::num_vertices(_graph);}
+		GraphType& getGraph(){return _graph;}
+		int getMarge(){return _marge;}
+		const GraphType& getGraph() const{return _graph;}
+		int getMarge() const {return _marge;}
+		int getNumEdges() const {return boost::num_edges(_graph);}
 		/* Return the number of edge linked to v */
-		virtual int getNumEdges(const Vertex& v) const {return boost::out_degree(v, _graph);}
+		int getNumEdges(const Vertex& v) const {return boost::out_degree(v, _graph);}
 		/** @brief Add edge between lopp index and index */
 		bool addEdge(const Vertex& loop_index, const Vertex& index, Edge& out, const EdgeType& edgeAttribute);
 		bool addEdge(const Vertex& loop_index, const Vertex& index, Edge& out);
 
-		virtual void addVertex(Vertex& vertex_out, const Vertex& dad, const VertexType& nodeAttribute);
-		virtual void addVertex(Vertex& vertex_out, const VertexType& nodeAttribute);
+		void addVertex(Vertex& vertex_out, const Vertex& dad, const VertexType& nodeAttribute);
+		void addVertex(Vertex& vertex_out, const VertexType& nodeAttribute);
 
-		virtual void removeVertex(Vertex& v){
+		void removeVertex(Vertex& v){
 			boost::clear_vertex(v, _graph);
 			boost::remove_vertex(v, _graph);
 			
 		}
-		virtual void removeEdge(Edge& e){
+		void removeEdge(Edge& e){
 			boost::remove_edge(e, _graph);
 		}
 			
-		virtual void getAllVertexLinked(const Vertex& v, std::deque< Vertex >& all_vertex) const;
-		virtual void getAllEdgeLinked(const Vertex& v, std::deque< std::pair< Edge, Vertex > >& all_edge) const;
+		void getAllVertexLinked(const Vertex& v, std::deque< Vertex >& all_vertex) const;
+		void getAllEdgeLinked(const Vertex& v, std::deque< std::pair< Edge, Vertex > >& all_edge) const;
 			
 		/**
 		* @brief return the vertex targeted by edge */
-		virtual void getTarget(const Edge& edge, Vertex& out) const;
-		virtual VertexType& operator[](const Vertex& v);
-		virtual const VertexType& operator[] (const Vertex& v) const;
-		virtual EdgeType& operator[](const Edge& v);
-		virtual const EdgeType& operator[] (const Edge& v) const;
+		void getTarget(const Edge& edge, Vertex& out) const;
+		VertexType& operator[](const Vertex& v);
+		const VertexType& operator[] (const Vertex& v) const;
+		EdgeType& operator[](const Edge& v);
+		const EdgeType& operator[] (const Edge& v) const;
+		void clear(){_graph.clear();}
 		
-		virtual void clear(){_graph.clear();}
+		void write(std::ostream& out){
+			std::pair<VertexIterator, VertexIterator> vp;
+			std::vector<Vertex> vec;
+			//vertices access all the vertix
+			//Classify them in order
+			int i = 0;
+			for (vp = boost::vertices(_graph); vp.first != vp.second; ++vp.first) {
+				Vertex v = *vp.first;
+				vec.push_back(v);
+				write(out, i, _graph[v]);
+				++i;
+			}
+			
+			for(size_t i = 0 ; i < vec.size() ; ++i){
+				out << getNumVertices() << std::endl;
+				for(size_t j = 0 ; j < vec.size() ; ++j){
+					
+					bool exist = boost::edge(vec[i], vec[j], _graph).second;
+					if(exist == true){
+						out << i << " " << j << std::endl;
+					}
+				}
+			}
+			
+		};
+		
+		
+		void read(std::istream& in){
+			clear();
+			
+			
+			
+		}
+		
+	private:
+		void write(std::ostream& out, int index, const VertexType& vertex){
+			out << " " << index << vertex << std::endl;
+		};
+		
 			
 	};
 

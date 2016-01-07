@@ -3,8 +3,21 @@
 #include "Graph.hpp"
 
 class Node{
+public:
+	const static int i = 0;
 	
 };
+
+std::istream& operator>>(std::istream& in, Node &p){
+	
+	return in;
+}
+
+std::ostream& operator<<(std::ostream& in, const Node &p){
+	
+	return in << p.i;
+}
+
 
 class Edge{
 	
@@ -59,6 +72,10 @@ int main(int argc, char **argv) {
 	
 	std::cout << "3 Node : " << graph.getNumVertices() << std::endl;
 	std::cout << "2 Edges : " << graph.getNumEdges() << std::endl;
+	
+	std::ofstream out("bob.txt");
+	graph.write(out);
+	
 	graph.clear();
 	
 	std::cout << "0 Node : " << graph.getNumVertices() << std::endl;
