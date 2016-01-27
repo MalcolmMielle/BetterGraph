@@ -54,12 +54,12 @@ namespace betterGraph{
 		
 	public :
 		AttributeAdder(){};
-		virtual void add(GraphType& arg1, Vertex& vertex_out, const Node& nodeAttribute){
-			arg1[vertex_out].i = nodeAttribute.i;
-			arg1[vertex_out].str = nodeAttribute.str;
+		virtual void add(GraphType& arg1, Vertex& vertex, const Node& vertexAttribute){
+			arg1[vertex].i = vertexAttribute.i;
+			arg1[vertex].str = vertexAttribute.str;
 		};
-		virtual void add(GraphType& arg1, Edge_type& out, const Edge& nodeAttribute){
-			arg1[out].bob = nodeAttribute.bob;
+		virtual void add(GraphType& arg1, Edge_type& edge, const Edge& edgeAttribute){
+			arg1[edge].bob = edgeAttribute.bob;
 		};
 		
 	};

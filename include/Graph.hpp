@@ -231,7 +231,7 @@ namespace betterGraph{
 		std::vector<VertexType> vectyp;
 		int garbage;
 		
-		int num_vertex = 0;
+		size_t num_vertex = 0;
 		in >> num_vertex;
 		for(size_t i = 0 ; i < num_vertex ; ++i){
 			Vertex v;
@@ -247,7 +247,6 @@ namespace betterGraph{
 			addVertex(vec[i], vectyp[i]);
 		}
 		
-		int i = 0;
 		while(!in.eof()){
 			int index;
 			int index2;

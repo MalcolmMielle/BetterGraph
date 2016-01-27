@@ -30,8 +30,8 @@ namespace betterGraph{
 		
 	public :
 		AttributeAdder(){};
-		virtual void add(GraphType& arg1, Vertex& vertex_out, const VertexType& nodeAttribute){};
-		virtual void add(GraphType& arg1, Edge& out, const EdgeType& nodeAttribute){};
+		virtual void add(GraphType& arg1, Vertex& vertex, const VertexType& vertexAttribute){};
+		virtual void add(GraphType& arg1, Edge& edge, const EdgeType& edgeAttribute){};
 		
 	};
 	
