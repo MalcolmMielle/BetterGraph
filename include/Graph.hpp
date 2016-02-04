@@ -61,23 +61,40 @@ namespace betterGraph{
 			boost::remove_edge(e, _graph);
 		}
 			
+		/**
+		 * @brief Get all the vertex linked to one vertex
+		 */
 		void getAllVertexLinked(const Vertex& v, std::deque< Vertex >& all_vertex) const;
+		/**
+		 * @brief Get all the edge and associated vertex out of a vertex
+		 */
 		void getAllEdgeLinked(const Vertex& v, std::deque< std::pair< Edge, Vertex > >& all_edge) const;
 			
 		/**
 		* @brief return the vertex targeted by edge */
 		void getTarget(const Edge& edge, Vertex& out) const;
+		/**
+		 * @brief get element of Vertex v in graph*/
 		VertexType& operator[](const Vertex& v);
 		const VertexType& operator[] (const Vertex& v) const;
 		EdgeType& operator[](const Edge& v);
 		const EdgeType& operator[] (const Edge& v) const;
+		
+		/**
+		 * @brief erase graph*/
 		void clear(){_graph.clear();}
 		
+		///@brief write graph to a file
 		void write(std::ostream& out);
+		///@brief read graph from a file
 		void read(std::ifstream& in);
 		
-		///@brief Reading an adjancy matrix
-		void read(char* matrix[], int x_size);
+		/**
+		 * @brief Reading an adjancy matrix
+		 * @param[in] matrix : adjancy matrix
+		 * @param[in] x_size : size of matrix
+		 * */
+		void read(char* matrix[], size_t x_size);
 		
 	private:
 		void write(std::ostream& out, int index, const VertexType& vertex){
@@ -266,7 +283,7 @@ namespace betterGraph{
 	}
 	
 	template<typename VertexType, typename EdgeType>
-	inline void Graph<VertexType, EdgeType>::read(char* matrix[], int x_size){
+	inline void Graph<VertexType, EdgeType>::read(char* matrix[], size_t x_size){
 		std::vector<Vertex> vec;
 		
 		for(size_t i = 0 ; i < x_size ; ++i){
