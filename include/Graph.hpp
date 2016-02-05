@@ -229,7 +229,7 @@ namespace betterGraph{
 		}
 		
 		for(size_t i = 0 ; i < vec.size() ; ++i){
-			out << getNumVertices() << std::endl;
+			out << getNumEdges(vec[i]) << std::endl;
 			for(size_t j = 0 ; j < vec.size() ; ++j){
 				
 				bool exist = boost::edge(vec[i], vec[j], _graph).second;
