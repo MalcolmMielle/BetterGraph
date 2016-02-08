@@ -45,12 +45,17 @@ namespace betterGraph{
 		int getNumEdges() const {return boost::num_edges(_graph);}
 		/* Return the number of edge linked to v */
 		int getNumEdges(const Vertex& v) const {return boost::out_degree(v, _graph);}
-		/** @brief Add edge between lopp index and index */
+		/** @brief Add edge with an edge attribute between lopp index and index */
 		bool addEdge(const Vertex& loop_index, const Vertex& index, Edge& out, const EdgeType& edgeAttribute);
+		/** @brief Add edge with default attribute between lopp index and index */
 		bool addEdge(const Vertex& loop_index, const Vertex& index, Edge& out);
 
+		///@brief Add vertex linked to the vertex dad to the graph
 		void addVertex(Vertex& vertex_out, const Vertex& dad, const VertexType& nodeAttribute);
+		///@brief Add vertex with a node attribute
 		void addVertex(Vertex& vertex_out, const VertexType& nodeAttribute);
+		///@brief Add vertex with default vertex attribute
+		void addVertex(Vertex& vertex_out);
 
 		void removeVertex(Vertex& v){
 			boost::clear_vertex(v, _graph);
@@ -117,6 +122,12 @@ namespace betterGraph{
 	{
 		vertex_out = boost::add_vertex(_graph);
 		_attribute_adder.add(_graph, vertex_out, nodeAttribute);
+	}
+	
+	template<typename VertexType, typename EdgeType>
+	inline void Graph<VertexType, EdgeType>::addVertex(Vertex& vertex_out)
+	{
+		vertex_out = boost::add_vertex(_graph);
 	}
 	
 	template<typename VertexType, typename EdgeType>
@@ -263,7 +274,6 @@ namespace betterGraph{
 		for(size_t i = 0 ; i < vec.size() ; ++i){
 			addVertex(vec[i], vectyp[i]);
 		}
-		
 		
 		while(!in.eof()){
 			int count_edge = 0 ;
