@@ -264,19 +264,20 @@ namespace betterGraph{
 			addVertex(vec[i], vectyp[i]);
 		}
 		
+		
 		while(!in.eof()){
-			int index;
-			int index2;
-			in >> index;
-			if(index == num_vertex){
+			int count_edge = 0 ;
+			in >> count_edge;
+			for(int p = 0 ; p < count_edge ; ++p){
+				int index;
+				int index2;
 				in >> index;
+				in >> index2;
+				EdgeType et;
+				in >> et;
+				Edge e;
+				addEdge(vec[index], vec[index2], e);
 			}
-			in >> index2;
-			
-			EdgeType et;
-			in >> et;
-			Edge e;
-			addEdge(vec[index], vec[index2], e);
 		}
 
 		
