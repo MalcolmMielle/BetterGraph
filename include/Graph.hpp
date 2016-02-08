@@ -94,7 +94,7 @@ namespace betterGraph{
 		 * @param[in] matrix : adjancy matrix
 		 * @param[in] x_size : size of matrix
 		 * */
-		void read(char* matrix[], size_t x_size);
+		void read(char* matrix[], const size_t x_size);
 		
 	private:
 		void write(std::ostream& out, int index, const VertexType& vertex){
@@ -283,7 +283,7 @@ namespace betterGraph{
 	}
 	
 	template<typename VertexType, typename EdgeType>
-	inline void Graph<VertexType, EdgeType>::read(char* matrix[], size_t x_size){
+	inline void Graph<VertexType, EdgeType>::read(char* matrix[], const size_t x_size){
 		std::vector<Vertex> vec;
 		
 		for(size_t i = 0 ; i < x_size ; ++i){
