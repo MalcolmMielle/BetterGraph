@@ -27,31 +27,34 @@ namespace betterGraph{
 		void setSecond(const Element& v){_v2 = v;}
 
 		
-		///@brief return true if one of the vertex correspond
-		virtual bool oneCommonElement(const MatchBase& m) const{
-// 				std::cout << "Comparing " <<_v1 << " with " << m.getFirst() << std::endl;
-// 				std::cout << " And Comparing " <<_v2 << " with " << m.getSecond() << std::endl;
-			if(_v1 == m.getFirst() || _v2 == m.getSecond()){
-				return true;
-			}
-			return false;
-		}
+		//THIS CANNOT BE OVERRIDED AFTER :(
 		
-		///@brief compare all attributes. return true if they are the same.
-		virtual bool operator ==(const MatchBase& m) const{
-			if(_v1 == m.getFirst() && _v2 == m.getSecond()){
-				return true;
-			}
-			return false;
-		}
+// 		///@brief return true if one of the vertex correspond
+// 		virtual bool oneCommonElement(const MatchBase<Element>& m) const{
+// // 				std::cout << "Comparing " <<_v1 << " with " << m.getFirst() << std::endl;
+// // 				std::cout << " And Comparing " <<_v2 << " with " << m.getSecond() << std::endl;
+// 			if(_v1 == m.getFirst() || _v2 == m.getSecond()){
+// 				return true;
+// 			}
+// 			return false;
+// 		}
 		
-		///@brief compare all attributes. return true if they are different.
-		virtual bool operator !=(const MatchBase& m) const {
-			if(*this == m){
-				return false;
-			}
-			return true;
-		}
+		
+// 		///@brief compare all attributes. return true if they are the same.
+// 		virtual bool operator ==(const MatchBase<Element>& m) const{
+// 			if(_v1 == m.getFirst() && _v2 == m.getSecond()){
+// 				return true;
+// 			}
+// 			return false;
+// 		}
+// 		
+// 		///@brief compare all attributes. return true if they are different.
+// 		virtual bool operator !=(const MatchBase<Element>& m) const {
+// 			if(*this == m){
+// 				return false;
+// 			}
+// 			return true;
+// 		}
 		
 		virtual void print(){
 			std::cout << "Element : " << _v1 << " " << _v2 << std::endl;

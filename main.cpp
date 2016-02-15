@@ -1,6 +1,8 @@
 #include <iostream>
 
 #include "Graph.hpp"
+#include "HypotheseBase.hpp"
+#include "MatchBase.hpp"
 
 class Node{
 public:
@@ -137,6 +139,35 @@ int main(int argc, char **argv) {
 		
 	}
 	free(matrix);
+	
+	
+	betterGraph::HypotheseBase<int> hyp;
+	
+	hyp.push_back(1);
+	hyp.push_back(2);
+	
+	std::cout << "Size of hypothese shoudl be 2 : " << hyp.size() << std::endl;
+	std::cout << "Value of hypothese should be 1 : " << hyp[0] << std::endl;
+	
+	std::cout << hyp << std::endl;
+	
+	betterGraph::MatchBase<float> match(1, 5);
+	match.setFirst(1.50);
+	match.setSecond(1.880);
+	
+	betterGraph::MatchBase<float> match2(1, 5);
+	match2.setFirst(1.50);
+	match2.setSecond(1.880);
+	
+	
+	std::cout << match << std::endl;
+	
+// 	if(match == match2){
+// 		std::cout << "GREAT" << std::endl;
+// 	}
+// 	else{
+// 		std::cout << "TEST FAIL" <<std::endl;
+// 	}
 	
 	return 0;
 	
