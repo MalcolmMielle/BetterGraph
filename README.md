@@ -73,6 +73,14 @@ index2 index3 edge attributes
 ...
 ```
 
+# Element of graph matching
+
+Two base class HypotheseBase and MatchBase are provided. 
+
+MatchBase is an match between two element and HypotheseBase is a deque of Match providing a possible match between two graph.
+
+MatchComparable and HypotheseComparable are daughter class with some comparaison function already implemented. Thus their element class needs to have an `operator==` and `operator<<`.
+
 # Example
 
 See main.cpp
