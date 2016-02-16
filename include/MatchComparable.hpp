@@ -14,6 +14,7 @@ namespace betterGraph{
 	protected :
 		
 	public :
+		MatchComparable(){};
 		MatchComparable(const Element& v, const Element& vv) : MatchBase<Element>(v, vv){};
 		
 		//THIS CANNOT BE COMPLETELY OVERRIDED AFTER :( see : http://stackoverflow.com/questions/35414595/overriding-template-function-in-specialized-daughter-class
