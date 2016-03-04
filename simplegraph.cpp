@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "PseudoGraph.hpp"
+#include "SimpleGraph.hpp"
 #include "HypotheseComparable.hpp"
 #include "MatchComparable.hpp"
 
@@ -97,7 +97,7 @@ std::ostream& operator<<(std::ostream& in, const EdgeAttr* p){
 int main(int argc, char **argv) {
     std::cout << "Hello, world!" << std::endl;
     
-	betterGraph::PseudoGraph<Node, EdgeAttr> graph;
+	betterGraph::SimpleGraph<Node, EdgeAttr> graph;
 	
 	typedef boost::adjacency_list<
 		boost::listS, boost::listS, boost::undirectedS, 
@@ -202,7 +202,7 @@ int main(int argc, char **argv) {
 	
 	/*** Trying pointers***/
 	
-	betterGraph::PseudoGraph<Node*, EdgeAttr*> graphP;
+	betterGraph::SimpleGraph<Node*, EdgeAttr*> graphP;
 	
 	typedef boost::adjacency_list<
 		boost::listS, boost::listS, boost::undirectedS, 
@@ -211,7 +211,7 @@ int main(int argc, char **argv) {
 		boost::no_property > GraphTypeP;
 // 	typedef typename boost::graph_traits<GraphTypeP>::vertex_iterator VertexIteratorP;
 	typedef typename boost::graph_traits<GraphTypeP>::vertex_descriptor VertexP;
-// 	typedef typename boost::graph_traits<GraphTypeP>::edge_descriptor EdgeP;
+	typedef typename boost::graph_traits<GraphTypeP>::edge_descriptor EdgeP;
 // 	typedef typename boost::graph_traits<GraphTypeP>::out_edge_iterator EdgeIteratorP;
 	
 	VertexP dadp;
@@ -222,6 +222,13 @@ int main(int argc, char **argv) {
 	graphP.addVertex(dadp, n);
 	EdgeAttr* ed = new EdgeAttr();
 	graphP.addVertex(sonp, dadp, n1, ed);
+	try{
+		EdgeP edgg;
+		graphP.addEdge(dadp, dadp, edgg);
+	}
+	catch(std::runtime_error& e){
+		std::cout << e.what() << std::endl;
+	}
 	graphP.addVertex(sonp, dadp, n3);
 	
 	std::ofstream outtt("bob3.txt");
