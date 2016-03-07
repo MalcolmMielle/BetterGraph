@@ -67,7 +67,7 @@ std::ostream& operator<<(std::ostream& in, const EdgeAttr* p){
 }
 
 
-// namespace betterGraph{
+// namespace bettergraph{
 // 	template<>
 // 	class AttributeAdder<Node, Edge>{
 // 	protected : 
@@ -97,7 +97,7 @@ std::ostream& operator<<(std::ostream& in, const EdgeAttr* p){
 int main(int argc, char **argv) {
     std::cout << "Hello, world!" << std::endl;
     
-	betterGraph::PseudoGraph<Node, EdgeAttr> graph;
+	bettergraph::PseudoGraph<Node, EdgeAttr> graph;
 	
 	typedef boost::adjacency_list<
 		boost::listS, boost::listS, boost::undirectedS, 
@@ -172,7 +172,7 @@ int main(int argc, char **argv) {
 	free(matrix);
 	
 	
-	betterGraph::HypotheseComparable<int> hyp;
+	bettergraph::HypotheseComparable<int> hyp;
 	
 	hyp.push_back(1);
 	hyp.push_back(2);
@@ -182,11 +182,11 @@ int main(int argc, char **argv) {
 	
 	std::cout << hyp << std::endl;
 	
-	betterGraph::MatchComparable<float> match(1, 5);
+	bettergraph::MatchComparable<float> match(1, 5);
 	match.setFirst(1.50);
 	match.setSecond(1.880);
 	
-	betterGraph::MatchComparable<float> match2(1, 5);
+	bettergraph::MatchComparable<float> match2(1, 5);
 	match2.setFirst(1.50);
 	match2.setSecond(1.880);
 	
@@ -202,7 +202,7 @@ int main(int argc, char **argv) {
 	
 	/*** Trying pointers***/
 	
-	betterGraph::PseudoGraph<Node*, EdgeAttr*> graphP;
+	bettergraph::PseudoGraph<Node*, EdgeAttr*> graphP;
 	
 	typedef boost::adjacency_list<
 		boost::listS, boost::listS, boost::undirectedS, 

@@ -6,7 +6,7 @@
 #include <fstream>
 #include "boost/graph/adjacency_list.hpp"
 
-namespace betterGraph{
+namespace bettergraph{
 	
 	template < typename VertexType, typename EdgeType>
 	class PseudoGraph{

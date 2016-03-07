@@ -6,7 +6,7 @@
 #include "MatchBase.hpp"
 
 
-namespace betterGraph{
+namespace bettergraph{
 	///@brief Two Element linked.
 	template<typename Element>
 	class MatchComparable : public MatchBase<Element>{
@@ -54,7 +54,7 @@ namespace betterGraph{
 	};
 	
 	template <typename Element>
-	inline std::ostream& operator<<(std::ostream& os, const betterGraph::MatchComparable<Element>& dt){
+	inline std::ostream& operator<<(std::ostream& os, const bettergraph::MatchComparable<Element>& dt){
 		os << "Vertex : " << dt.getFirst() << " " << dt.getSecond() << std::endl;
 		return os;
 	}

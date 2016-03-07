@@ -3,7 +3,7 @@
 
 #include "boost/bind.hpp"
 
-namespace betterGraph{	
+namespace bettergraph{	
 	
 	/**
 		* @brief Object defining a possible matching between two graphmatch::GraphPlace

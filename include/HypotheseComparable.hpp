@@ -4,7 +4,7 @@
 #include "boost/bind.hpp"
 #include "HypotheseBase.hpp"
 
-namespace betterGraph{
+namespace bettergraph{
 	
 	/**
 		* @brief Object defining a possible matching between two graphmatch::GraphPlace
@@ -112,7 +112,7 @@ namespace betterGraph{
 	
 	/* STD::COUT function*/
 	template<typename Element>
-	inline std::ostream& operator<<(std::ostream& os, const betterGraph::HypotheseComparable<Element>& dt){
+	inline std::ostream& operator<<(std::ostream& os, const bettergraph::HypotheseComparable<Element>& dt){
 		os << "Hypothese" << std::endl;
 		for(size_t i = 0 ; i < dt.size() ; ++i){
 			os << "element " << i << " " << dt[i] << std::endl;

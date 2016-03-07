@@ -3,7 +3,7 @@
 
 #include "PseudoGraph.hpp"
 
-namespace betterGraph{
+namespace bettergraph{
 	
 	
 	/**

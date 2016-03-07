@@ -6,7 +6,7 @@
 
 
 
-namespace betterGraph{
+namespace bettergraph{
 	///@brief Two Element linked.
 	template<typename Element>
 	class MatchBase{
