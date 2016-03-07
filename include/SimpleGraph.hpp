@@ -35,12 +35,12 @@ namespace bettergraph{
 		 * If the edge already exist, no Edge is created and we return the Edge that was already there. 
 		 * The Edge type is changed
 		 */
-		bool addEdge(const Vertex& loop_index, const Vertex& index, Edge& out, const EdgeType& edgeAttribute);
+		bool addEdge(Edge& out, const Vertex& loop_index, const Vertex& index, const EdgeType& edgeAttribute);
 		/** @brief Add edge with default attribute between lopp index and index or no attribute if the attribute is a pointer
 		 * If the edge already exist, no Edge is created and we return the Edge that was already there. 
 		 * The Edge type is changed
 		 */
-		bool addEdge(const Vertex& loop_index, const Vertex& index, Edge& out);
+		bool addEdge(Edge& out, const Vertex& loop_index, const Vertex& index);
 
 
 		
@@ -52,7 +52,7 @@ namespace bettergraph{
 	 * ***************************************************************/
 	
 	template<typename VertexType, typename EdgeType>
-	inline bool SimpleGraph<VertexType, EdgeType>::addEdge(const Vertex& loop_index, const Vertex& index, Edge& out, const EdgeType& edgeAttribute)
+	inline bool SimpleGraph<VertexType, EdgeType>::addEdge(Edge& out, const Vertex& loop_index, const Vertex& index, const EdgeType& edgeAttribute)
 	{
 		
 		bool self_loop = addEdge(loop_index, index, out);
@@ -65,7 +65,7 @@ namespace bettergraph{
 	}
 	
 	template<typename VertexType, typename EdgeType>
-	inline bool SimpleGraph<VertexType, EdgeType>::addEdge(const Vertex& loop_index, const Vertex& index, Edge& out)
+	inline bool SimpleGraph<VertexType, EdgeType>::addEdge(Edge& out, const Vertex& loop_index, const Vertex& index)
 	{
 		
 		bool self_loop = false;

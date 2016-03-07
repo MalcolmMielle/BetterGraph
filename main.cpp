@@ -227,7 +227,8 @@ int main(int argc, char **argv) {
 	
 	std::ofstream outtt("bob3.txt");
 	graphP.write(outtt);
-	    
+	
+    
     return 0;
 	
 }

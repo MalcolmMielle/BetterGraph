@@ -224,7 +224,7 @@ int main(int argc, char **argv) {
 	graphP.addVertex(sonp, dadp, n1, ed);
 	try{
 		EdgeP edgg;
-		graphP.addEdge(dadp, dadp, edgg);
+		graphP.addEdge(edgg, dadp, dadp);
 	}
 	catch(std::runtime_error& e){
 		std::cout << e.what() << std::endl;

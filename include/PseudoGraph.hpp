@@ -44,9 +44,9 @@ namespace bettergraph{
 		int getNumEdges(const Vertex& v) const {return boost::out_degree(v, _graph);}
 		
 		/** @brief Add edge with an edge attribute between lopp index and index */
-		bool addEdge(const Vertex& loop_index, const Vertex& index, Edge& out, const EdgeType& edgeAttribute);
+		bool addEdge(Edge& out, const Vertex& loop_index, const Vertex& index, const EdgeType& edgeAttribute);
 		/** @brief Add edge with default attribute between lopp index and index or no attribute if the attribute is a pointer*/
-		bool addEdge(const Vertex& loop_index, const Vertex& index, Edge& out);
+		bool addEdge(Edge& out, const Vertex& loop_index, const Vertex& index);
 
 		///@brief Add vertex linked to the vertex dad to the graph
 		void addVertex(Vertex& vertex_out, const Vertex& dad, const VertexType& nodeAttribute);
@@ -139,7 +139,7 @@ namespace bettergraph{
 	{
 		addVertex(vertex_out, nodeAttribute);
 		Edge out;
-		addEdge(vertex_out, dad, out);
+		addEdge(out, vertex_out, dad);
 	}
 	
 	template<typename VertexType, typename EdgeType>
@@ -147,7 +147,7 @@ namespace bettergraph{
 	{
 		addVertex(vertex_out, nodeAttribute);
 		Edge out;
-		addEdge(vertex_out, dad, out, edgeAttribute);
+		addEdge(out, vertex_out, dad, edgeAttribute);
 	}
 	
 	/*****************************************************************
@@ -155,15 +155,15 @@ namespace bettergraph{
 	* ***************************************************************/
 	
 	template<typename VertexType, typename EdgeType>
-	inline bool PseudoGraph<VertexType, EdgeType>::addEdge(const Vertex& loop_index, const Vertex& index, Edge& out, const EdgeType& edgeAttribute)
+	inline bool PseudoGraph<VertexType, EdgeType>::addEdge(Edge& out, const Vertex& loop_index, const Vertex& index, const EdgeType& edgeAttribute)
 	{
-		bool res = addEdge(loop_index, index, out);
+		bool res = addEdge(out, loop_index, index);
 		_graph[out] = edgeAttribute;
 		return res;
 	}
 	
 	template<typename VertexType, typename EdgeType>
-	inline bool PseudoGraph<VertexType, EdgeType>::addEdge(const Vertex& loop_index, const Vertex& index, Edge& out)
+	inline bool PseudoGraph<VertexType, EdgeType>::addEdge(Edge& out, const Vertex& loop_index, const Vertex& index)
 	{
 		out = boost::add_edge(loop_index, index , _graph).first;
 		return true;
@@ -310,7 +310,7 @@ namespace bettergraph{
 				EdgeType et;
 				in >> et;
 				Edge e;
-				addEdge(vec[index], vec[index2], e);
+				addEdge(e, vec[index], vec[index2]);
 			}
 		}
 
@@ -332,7 +332,7 @@ namespace bettergraph{
 			for(size_t j = 0 ; j < x_size ; ++j){
 				if(matrix[i][j] == 1){
 					Edge o;
-					addEdge(vec[i], vec[j], o);
+					addEdge(o, vec[i], vec[j]);
 				}
 				
 			}
