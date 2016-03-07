@@ -13,7 +13,7 @@ namespace bettergraph{
 	*/
 	template < typename VertexType, typename EdgeType>
 	class SimpleGraph : public PseudoGraph<VertexType, EdgeType>{
-	protected :
+	public:
 		
 		typedef boost::adjacency_list<
 			boost::listS, boost::listS, boost::undirectedS, 
@@ -23,10 +23,7 @@ namespace bettergraph{
 		typedef typename boost::graph_traits<GraphType>::vertex_iterator VertexIterator;
 		typedef typename boost::graph_traits<GraphType>::vertex_descriptor Vertex;
 		typedef typename boost::graph_traits<GraphType>::edge_descriptor Edge;
-		typedef typename boost::graph_traits<GraphType>::out_edge_iterator EdgeIterator;
-		
-// 		GraphType _graph;
-		
+		typedef typename boost::graph_traits<GraphType>::out_edge_iterator EdgeIterator;		
 		
 	public:
 		SimpleGraph(){};

@@ -214,7 +214,8 @@ int main(int argc, char **argv) {
 // 	typedef typename boost::graph_traits<GraphTypeP>::edge_descriptor EdgeP;
 // 	typedef typename boost::graph_traits<GraphTypeP>::out_edge_iterator EdgeIteratorP;
 	
-	VertexP dadp;
+// 	bettergraph::VertexPseudo<Node, EdgeAttr> dadp;
+	bettergraph::PseudoGraph<Node, EdgeAttr>::Vertex dadp;
 	VertexP sonp;
 	Node* n = new Node();
 	Node* n1 = new Node(3);
@@ -226,9 +227,7 @@ int main(int argc, char **argv) {
 	
 	std::ofstream outtt("bob3.txt");
 	graphP.write(outtt);
-	
-
-    
+	    
     return 0;
 	
 }

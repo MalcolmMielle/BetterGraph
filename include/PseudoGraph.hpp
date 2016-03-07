@@ -7,10 +7,13 @@
 #include "boost/graph/adjacency_list.hpp"
 
 namespace bettergraph{
+
+
+	
 	
 	template < typename VertexType, typename EdgeType>
 	class PseudoGraph{
-	protected :
+	public :
 		
 		typedef boost::adjacency_list<
 			boost::listS, boost::listS, boost::undirectedS, 
@@ -21,6 +24,8 @@ namespace bettergraph{
 		typedef typename boost::graph_traits<GraphType>::vertex_descriptor Vertex;
 		typedef typename boost::graph_traits<GraphType>::edge_descriptor Edge;
 		typedef typename boost::graph_traits<GraphType>::out_edge_iterator EdgeIterator;
+		
+	protected:
 		
 		GraphType _graph;
 		
@@ -62,17 +67,17 @@ namespace bettergraph{
 		}
 		
 		/**
-		 * @brief Get edge between v1 and v2
-		 */
+		* @brief Get edge between v1 and v2
+		*/
 		bool getEdge(const Vertex& v1, const Vertex& v2, Edge& edge_out);
 			
 		/**
-		 * @brief Get all the vertex linked to one vertex
-		 */
+		* @brief Get all the vertex linked to one vertex
+		*/
 		void getAllVertexLinked(const Vertex& v, std::deque< Vertex >& all_vertex) const;
 		/**
-		 * @brief Get all the edge and associated vertex out of a vertex
-		 */
+		* @brief Get all the edge and associated vertex out of a vertex
+		*/
 		void getAllEdgeLinked(const Vertex& v, std::deque< std::pair< Edge, Vertex > >& all_edge) const;
 			
 		/**
@@ -81,14 +86,14 @@ namespace bettergraph{
 		* @brief return the vertex source of edge */
 		void getSource(const Edge& edge, Vertex& out) const;
 		/**
-		 * @brief get element of Vertex v in graph*/
+		* @brief get element of Vertex v in graph*/
 		VertexType& operator[](const Vertex& v);
 		const VertexType& operator[] (const Vertex& v) const;
 		EdgeType& operator[](const Edge& v);
 		const EdgeType& operator[] (const Edge& v) const;
 		
 		/**
-		 * @brief erase graph*/
+		* @brief erase graph*/
 		void clear(){_graph.clear();}
 		
 		///@brief write graph to a file
@@ -97,10 +102,10 @@ namespace bettergraph{
 		void read(std::ifstream& in);
 		
 		/**
-		 * @brief Reading an adjancy matrix
-		 * @param[in] matrix : adjancy matrix
-		 * @param[in] x_size : size of matrix
-		 * */
+		* @brief Reading an adjancy matrix
+		* @param[in] matrix : adjancy matrix
+		* @param[in] x_size : size of matrix
+		* */
 		void read(char* matrix[], const size_t x_size);
 		
 	private:
@@ -112,8 +117,8 @@ namespace bettergraph{
 	};
 	
 	/*****************************************************************
-	 * 							ADD VERTEX
-	 * ***************************************************************/
+	* 							ADD VERTEX
+	* ***************************************************************/
 	
 	template<typename VertexType, typename EdgeType>
 	inline void PseudoGraph<VertexType, EdgeType>::addVertex(Vertex& vertex_out)
@@ -146,8 +151,8 @@ namespace bettergraph{
 	}
 	
 	/*****************************************************************
-	 * 							ADD EDGE
-	 * ***************************************************************/
+	* 							ADD EDGE
+	* ***************************************************************/
 	
 	template<typename VertexType, typename EdgeType>
 	inline bool PseudoGraph<VertexType, EdgeType>::addEdge(const Vertex& loop_index, const Vertex& index, Edge& out, const EdgeType& edgeAttribute)
@@ -166,8 +171,8 @@ namespace bettergraph{
 	}
 	
 	/*****************************************************************
-	 * 							OTHER
-	 * ***************************************************************/
+	* 							OTHER
+	* ***************************************************************/
 	
 	template<typename VertexType, typename EdgeType>
 	inline bool PseudoGraph<VertexType, EdgeType>::getEdge(const Vertex& v1, const Vertex& v2, Edge& edge_out){
@@ -336,4 +341,5 @@ namespace bettergraph{
 	}
 
 }
+
 #endif
