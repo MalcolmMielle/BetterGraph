@@ -10,24 +10,18 @@ Made to use in an intuitive way the boost graph and using iostream way to read a
 betterGraph::Graph<Node, Edge> graph;
 ```
 
-Node and Edge are custom class created by the user. They need to have a default constructor with no argument. The Graph are always undirected.
-Since it uses boost it may be useful to declare those typedef
-
-```
-typedef boost::adjacency_list<
-boost::listS, boost::listS, boost::undirectedS, 
-Node,
-Edge, 
-boost::no_property > GraphType;
-typedef typename boost::graph_traits<GraphType>::vertex_iterator VertexIterator;
-typedef typename boost::graph_traits<GraphType>::vertex_descriptor Vertex;
-typedef typename boost::graph_traits<GraphType>::edge_descriptor Edge;
-typedef typename boost::graph_traits<GraphType>::out_edge_iterator EdgeIterator;
-```
-
-Those are the long complicated name of the vertices and edges of the graph and the iterators associated.
+Node and Edge are custom class created by the user. They need to have a default constructor with no argument. 
 
 The better graph can be update real time by adding edges, vertex and changing attributes. This is the main advantage compared to [VFL](http://mivia.unisa.it/datasets/graph-database/vflib/).
+
+for a PseudoGraph with a Node attribute `Node` and a Edge attribute `EdgeAttr` :
+
+* Vertex of the graph : `bettergraph::PseudoGraph<Node, EdgeAttr>::Vertex}` 
+* Edge of the graph : `bettergraph::PseudoGraph<Node, EdgeAttr>::Edge}` 
+* Vertex iterator of the graph : `bettergraph::PseudoGraph<Node, EdgeAttr>::VertexIterator}` 
+* Edge iterator of the graph : `bettergraph::PseudoGraph<Node, EdgeAttr>::EdgeIterator}` 
+
+To access the attribute of an edge or a vertex : `graph[vertex]` and then use the class for the attribute as you would normally do.
 
 # Read and write
 
