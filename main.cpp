@@ -228,6 +228,15 @@ int main(int argc, char **argv) {
 	std::ofstream outtt("bob3.txt");
 	graphP.write(outtt);
 	
+	std::pair<bettergraph::PseudoGraph<Node, EdgeAttr>::VertexIterator, bettergraph::PseudoGraph<Node, EdgeAttr>::VertexIterator> vp;
+	std::vector<bettergraph::PseudoGraph<Node, EdgeAttr>::Vertex> vec;
+	//vertices access all the vertix
+	//Classify them in order
+	for (vp = boost::vertices(graphP); vp.first != vp.second; ++vp.first) {
+		bettergraph::PseudoGraph<Node, EdgeAttr>::Vertex v = *vp.first;
+		std::cout << graphP[v] << std::endl;
+	}
+	
     
     return 0;
 	

@@ -58,7 +58,7 @@ namespace bettergraph{
 		bool self_loop = addEdge(loop_index, index, out);
 		//Add the attribute only if the edge is new and the node are not the same
 		if(self_loop == false){
-			this->_graph[out] = edgeAttribute;
+			(*this)[out] = edgeAttribute;
 		}
 		return self_loop;
 		
@@ -69,10 +69,10 @@ namespace bettergraph{
 	{
 		
 		bool self_loop = false;
-		bool exist = boost::edge(loop_index, index, this->_graph).second;
+		bool exist = boost::edge(loop_index, index, (*this)).second;
 		//No multiple edges from one node to the same node
 		if(exist == true){
-			out = boost::edge(loop_index, index, this->_graph).first;
+			out = boost::edge(loop_index, index, (*this)).first;
 #ifdef VERBOSE
 			std::cout << "Edge already existed, modifying the old edge" << std::endl;
 #endif
@@ -83,7 +83,7 @@ namespace bettergraph{
 			throw std::runtime_error("No self-loops are possible in Simple Graphs");
 		}
 		else{
-			out = boost::add_edge(loop_index, index , this->_graph).first;
+			out = boost::add_edge(loop_index, index , (*this)).first;
 		}
 		return self_loop;
 		
