@@ -55,7 +55,7 @@ namespace bettergraph{
 	inline bool SimpleGraph<VertexType, EdgeType>::addEdge(Edge& out, const Vertex& loop_index, const Vertex& index, const EdgeType& edgeAttribute)
 	{
 		
-		bool self_loop = addEdge(loop_index, index, out);
+		bool self_loop = addEdge(out, loop_index, index);
 		//Add the attribute only if the edge is new and the node are not the same
 		if(self_loop == false){
 			(*this)[out] = edgeAttribute;
