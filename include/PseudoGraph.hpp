@@ -24,10 +24,13 @@ namespace bettergraph{
 			VertexType,
 			EdgeType, 
 			boost::no_property > GraphType;
-		typedef typename boost::graph_traits<GraphType>::vertex_iterator VertexIterator;
-		typedef typename boost::graph_traits<GraphType>::vertex_descriptor Vertex;
+		typedef typename boost::graph_traits<GraphType>::vertex_iterator 
+VertexIterator;
+		typedef typename boost::graph_traits<GraphType>::vertex_descriptor 
+Vertex;
 		typedef typename boost::graph_traits<GraphType>::edge_descriptor Edge;
-		typedef typename boost::graph_traits<GraphType>::out_edge_iterator EdgeIterator;
+		typedef typename boost::graph_traits<GraphType>::out_edge_iterator 
+EdgeIterator;
 		
 // 	protected:
 // 		
@@ -46,17 +49,23 @@ namespace bettergraph{
 		const GraphType& getGraph() const{return (*this);}
 		int getNumEdges() const {return boost::num_edges((*this));}
 		/* Return the number of edge linked to v */
-		int getNumEdges(const Vertex& v) const {return boost::out_degree(v, (*this));}
+		int getNumEdges(const Vertex& v) const {return boost::out_degree(v, 
+(*this));}
 		
-		/** @brief Add edge with an edge attribute between lopp index and index */
-		bool addEdge(Edge& out, const Vertex& loop_index, const Vertex& index, const EdgeType& edgeAttribute);
-		/** @brief Add edge with default attribute between lopp index and index or no attribute if the attribute is a pointer*/
+		/** @brief Add edge with an edge attribute between lopp index and index 
+*/
+		bool addEdge(Edge& out, const Vertex& loop_index, const Vertex& index, 
+const EdgeType& edgeAttribute);
+		/** @brief Add edge with default attribute between lopp index and index 
+or no attribute if the attribute is a pointer*/
 		bool addEdge(Edge& out, const Vertex& loop_index, const Vertex& index);
 
 		///@brief Add vertex linked to the vertex dad to the graph
-		void addVertex(Vertex& vertex_out, const Vertex& dad, const VertexType& nodeAttribute);
+		void addVertex(Vertex& vertex_out, const Vertex& dad, const VertexType& 
+nodeAttribute);
 		///@brief Add vertex linked to the vertex dad to the graph + the edge attribute
-		void addVertex(Vertex& vertex_out, const Vertex& dad, const VertexType& nodeAttribute, const EdgeType& edgeAttribute);
+		void addVertex(Vertex& vertex_out, const Vertex& dad, const VertexType& 
+nodeAttribute, const EdgeType& edgeAttribute);
 		///@brief Add vertex with a node attribute
 		void addVertex(Vertex& vertex_out, const VertexType& nodeAttribute);
 		///@brief Add vertex with default vertex attribute or no attribute if the node is a pointer
@@ -79,11 +88,13 @@ namespace bettergraph{
 		/**
 		* @brief Get all the vertex linked to one vertex
 		*/
-		void getAllVertexLinked(const Vertex& v, std::deque< Vertex >& all_vertex) const;
+		void getAllVertexLinked(const Vertex& v, std::deque< Vertex >& 
+all_vertex) const;
 		/**
 		* @brief Get all the edge and associated vertex out of a vertex
 		*/
-		void getAllEdgeLinked(const Vertex& v, std::deque< std::pair< Edge, Vertex > >& all_edge) const;
+		void getAllEdgeLinked(const Vertex& v, std::deque< std::pair< Edge, 
+Vertex > >& all_edge) const;
 			
 		/**
 		* @brief return the vertex targeted by edge */
@@ -102,6 +113,12 @@ namespace bettergraph{
 		* @param[in] x_size : size of matrix
 		* */
 		void read(char* matrix[], const size_t x_size);
+		
+		/**
+		 * Print the value of all nodes
+		 * 
+		 */
+		void print() const ;
 		
 	private:
 		void write(std::ostream& out, int index, const VertexType& vertex){
@@ -122,7 +139,8 @@ namespace bettergraph{
 	}
 	
 	template<typename VertexType, typename EdgeType>
-	inline void PseudoGraph<VertexType, EdgeType>::addVertex(Vertex& vertex_out, const VertexType& nodeAttribute)
+	inline void PseudoGraph<VertexType, EdgeType>::addVertex(Vertex& 
+vertex_out, const VertexType& nodeAttribute)
 	{
 		vertex_out = boost::add_vertex((*this));
 // 		_attribute_adder.add((*this), vertex_out, nodeAttribute);
@@ -130,7 +148,8 @@ namespace bettergraph{
 	}
 
 	template<typename VertexType, typename EdgeType>
-	inline void PseudoGraph<VertexType, EdgeType>::addVertex(Vertex& vertex_out, const Vertex& dad, const VertexType& nodeAttribute)
+	inline void PseudoGraph<VertexType, EdgeType>::addVertex(Vertex& 
+vertex_out, const Vertex& dad, const VertexType& nodeAttribute)
 	{
 		addVertex(vertex_out, nodeAttribute);
 		Edge out;
@@ -138,7 +157,9 @@ namespace bettergraph{
 	}
 	
 	template<typename VertexType, typename EdgeType>
-	inline void PseudoGraph<VertexType, EdgeType>::addVertex(Vertex& vertex_out, const Vertex& dad, const VertexType& nodeAttribute, const EdgeType& edgeAttribute)
+	inline void PseudoGraph<VertexType, EdgeType>::addVertex(Vertex& 
+vertex_out, const Vertex& dad, const VertexType& nodeAttribute, const EdgeType& 
+edgeAttribute)
 	{
 		addVertex(vertex_out, nodeAttribute);
 		Edge out;
@@ -150,7 +171,8 @@ namespace bettergraph{
 	* ***************************************************************/
 	
 	template<typename VertexType, typename EdgeType>
-	inline bool PseudoGraph<VertexType, EdgeType>::addEdge(Edge& out, const Vertex& loop_index, const Vertex& index, const EdgeType& edgeAttribute)
+	inline bool PseudoGraph<VertexType, EdgeType>::addEdge(Edge& out, const 
+Vertex& loop_index, const Vertex& index, const EdgeType& edgeAttribute)
 	{
 		bool res = addEdge(out, loop_index, index);
 		(*this)[out] = edgeAttribute;
@@ -158,7 +180,8 @@ namespace bettergraph{
 	}
 	
 	template<typename VertexType, typename EdgeType>
-	inline bool PseudoGraph<VertexType, EdgeType>::addEdge(Edge& out, const Vertex& loop_index, const Vertex& index)
+	inline bool PseudoGraph<VertexType, EdgeType>::addEdge(Edge& out, const 
+Vertex& loop_index, const Vertex& index)
 	{
 		out = boost::add_edge(loop_index, index , (*this)).first;
 		return true;
@@ -170,13 +193,15 @@ namespace bettergraph{
 	* ***************************************************************/
 	
 	template<typename VertexType, typename EdgeType>
-	inline bool PseudoGraph<VertexType, EdgeType>::getEdge(const Vertex& v1, const Vertex& v2, Edge& edge_out){
+	inline bool PseudoGraph<VertexType, EdgeType>::getEdge(const Vertex& v1, 
+const Vertex& v2, Edge& edge_out){
 		edge_out = boost::edge(v1, v2, (*this)).first;
 		return boost::edge(v1, v2, (*this)).second;
 	}
 		
 	template<typename VertexType, typename EdgeType>
-	inline void PseudoGraph<VertexType, EdgeType>::getAllVertexLinked(const Vertex& v, std::deque< Vertex >& all_vertex) const
+	inline void PseudoGraph<VertexType, EdgeType>::getAllVertexLinked(const 
+Vertex& v, std::deque< Vertex >& all_vertex) const
 	{
 		EdgeIterator out_i, out_end;
 		Edge e;
@@ -191,7 +216,8 @@ namespace bettergraph{
 	}
 		
 	template<typename VertexType, typename EdgeType>
-	inline void PseudoGraph<VertexType, EdgeType>::getAllEdgeLinked(const Vertex& v, std::deque< std::pair< Edge, Vertex > >& all_edge) const
+	inline void PseudoGraph<VertexType, EdgeType>::getAllEdgeLinked(const 
+Vertex& v, std::deque< std::pair< Edge, Vertex > >& all_edge) const
 	{
 // 		std::cout << "GRAPH PLACE EDGE LINKED" << std::endl;
 		EdgeIterator out_i, out_end;
@@ -219,6 +245,36 @@ namespace bettergraph{
 	}
 	
 	template<typename VertexType, typename EdgeType>
+	inline void PseudoGraph<VertexType, EdgeType>::print() const
+	{
+		std::pair<VertexIterator, VertexIterator> vp;
+		std::vector<Vertex> vec;
+		//vertices access all the vertix
+		//Classify them in order
+		int i = 0;
+		std::cout << getNumVertices() << std::endl;
+		for (vp = boost::vertices((*this)); vp.first != vp.second; ++vp.first) {
+			Vertex v = *vp.first;
+			vec.push_back(v);
+			std::cout << i <<" " << (*this)[v] << std::endl;
+			++i;
+		}
+		
+		for(size_t i = 0 ; i < vec.size() ; ++i){
+			std::cout << getNumEdges(vec[i]) << std::endl;
+			for(size_t j = 0 ; j < vec.size() ; ++j){
+				
+				bool exist = boost::edge(vec[i], vec[j], (*this)).second;
+				if(exist == true){
+					std::cout << i << " " << j << " " << (*this)[boost::edge(vec[i], 
+vec[j], (*this)).first] << std::endl;
+				}
+			}
+		}
+	}
+
+	
+	template<typename VertexType, typename EdgeType>
 	inline void PseudoGraph<VertexType, EdgeType>::write(std::ostream& out){
 		std::pair<VertexIterator, VertexIterator> vp;
 		std::vector<Vertex> vec;
@@ -239,7 +295,8 @@ namespace bettergraph{
 				
 				bool exist = boost::edge(vec[i], vec[j], (*this)).second;
 				if(exist == true){
-					out << i << " " << j << " " << (*this)[boost::edge(vec[i], vec[j], (*this)).first] << std::endl;
+					out << i << " " << j << " " << (*this)[boost::edge(vec[i], 
+vec[j], (*this)).first] << std::endl;
 				}
 			}
 		}
@@ -288,7 +345,8 @@ namespace bettergraph{
 	}
 	
 	template<typename VertexType, typename EdgeType>
-	inline void PseudoGraph<VertexType, EdgeType>::read(char* matrix[], const size_t x_size){
+	inline void PseudoGraph<VertexType, EdgeType>::read(char* matrix[], const 
+size_t x_size){
 		std::vector<Vertex> vec;
 		
 		for(size_t i = 0 ; i < x_size ; ++i){
