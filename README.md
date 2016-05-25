@@ -10,7 +10,7 @@ Made to use in an intuitive way the boost graph and using iostream way to read a
 betterGraph::Graph<Node, Edge> graph;
 ```
 
-Node and Edge are custom class created by the user. They need to have a default constructor with no argument. 
+Node and Edge are custom class created by the user. They need to have a default constructor with no argument (because of the read function). 
 
 The better graph can be update real time by adding edges, vertex and changing attributes. This is the main advantage compared to [VFL](http://mivia.unisa.it/datasets/graph-database/vflib/).
 
