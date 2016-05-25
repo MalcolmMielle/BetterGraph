@@ -142,9 +142,9 @@ Vertex > >& all_edge) const;
 	inline void PseudoGraph<VertexType, EdgeType>::addVertex(Vertex& 
 vertex_out, const VertexType& nodeAttribute)
 	{
-		vertex_out = boost::add_vertex((*this));
+		vertex_out = boost::add_vertex(nodeAttribute, (*this));
 // 		_attribute_adder.add((*this), vertex_out, nodeAttribute);
-		(*this)[vertex_out] = nodeAttribute;
+// 		(*this)[vertex_out] = nodeAttribute;
 	}
 
 	template<typename VertexType, typename EdgeType>
@@ -174,9 +174,9 @@ edgeAttribute)
 	inline bool PseudoGraph<VertexType, EdgeType>::addEdge(Edge& out, const 
 Vertex& loop_index, const Vertex& index, const EdgeType& edgeAttribute)
 	{
-		bool res = addEdge(out, loop_index, index);
-		(*this)[out] = edgeAttribute;
-		return res;
+		out = boost::add_edge(loop_index, index , edgeAttribute, (*this)).first;
+// 		(*this)[out] = edgeAttribute;
+		return true;
 	}
 	
 	template<typename VertexType, typename EdgeType>
