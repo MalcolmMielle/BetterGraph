@@ -17,6 +17,8 @@ namespace bettergraph{
 			VertexType,
 			EdgeType, 
 			boost::no_property >{
+				
+				
 	public :
 		
 		typedef boost::adjacency_list<
@@ -54,29 +56,29 @@ EdgeIterator;
 		
 		/** @brief Add edge with an edge attribute between lopp index and index 
 */
-		bool addEdge(Edge& out, const Vertex& loop_index, const Vertex& index, 
+		virtual bool addEdge(Edge& out, const Vertex& loop_index, const Vertex& index, 
 const EdgeType& edgeAttribute);
 		/** @brief Add edge with default attribute between lopp index and index 
 or no attribute if the attribute is a pointer*/
-		bool addEdge(Edge& out, const Vertex& loop_index, const Vertex& index);
+		virtual bool addEdge(Edge& out, const Vertex& loop_index, const Vertex& index);
 
 		///@brief Add vertex linked to the vertex dad to the graph
-		void addVertex(Vertex& vertex_out, const Vertex& dad, const VertexType& 
+		virtual void addVertex(Vertex& vertex_out, const Vertex& dad, const VertexType& 
 nodeAttribute);
 		///@brief Add vertex linked to the vertex dad to the graph + the edge attribute
-		void addVertex(Vertex& vertex_out, const Vertex& dad, const VertexType& 
+		virtual void addVertex(Vertex& vertex_out, const Vertex& dad, const VertexType& 
 nodeAttribute, const EdgeType& edgeAttribute);
 		///@brief Add vertex with a node attribute
-		void addVertex(Vertex& vertex_out, const VertexType& nodeAttribute);
+		virtual void addVertex(Vertex& vertex_out, const VertexType& nodeAttribute);
 		///@brief Add vertex with default vertex attribute or no attribute if the node is a pointer
-		void addVertex(Vertex& vertex_out);
+		virtual void addVertex(Vertex& vertex_out);
 
-		void removeVertex(Vertex& v){
+		virtual void removeVertex(Vertex& v){
 			boost::clear_vertex(v, (*this));
 			boost::remove_vertex(v, (*this));
 			
 		}
-		void removeEdge(Edge& e){
+		virtual void removeEdge(Edge& e){
 			boost::remove_edge(e, (*this));
 		}
 		
@@ -183,6 +185,7 @@ Vertex& loop_index, const Vertex& index, const EdgeType& edgeAttribute)
 	inline bool PseudoGraph<VertexType, EdgeType>::addEdge(Edge& out, const 
 Vertex& loop_index, const Vertex& index)
 	{
+// 		std::cout << "PSEUDO GRAPH ADD" << std::endl;
 		out = boost::add_edge(loop_index, index , (*this)).first;
 		return true;
 		

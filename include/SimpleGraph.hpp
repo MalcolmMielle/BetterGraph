@@ -67,7 +67,7 @@ namespace bettergraph{
 	template<typename VertexType, typename EdgeType>
 	inline bool SimpleGraph<VertexType, EdgeType>::addEdge(Edge& out, const Vertex& loop_index, const Vertex& index)
 	{
-		
+// 		std::cout << "SIMPLE GRAPH ADD" << std::endl;
 		bool self_loop = false;
 		bool exist = boost::edge(loop_index, index, (*this)).second;
 		//No multiple edges from one node to the same node
