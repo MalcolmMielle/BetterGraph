@@ -11,9 +11,11 @@ include_directories(include)
 
 add_executable(bettergraph main.cpp)
 add_executable(simplegraph simplegraph.cpp)
+add_executable(directedpseudograph directedpseudo.cpp)
 
 install(TARGETS bettergraph RUNTIME DESTINATION bin)
 install(TARGETS simplegraph RUNTIME DESTINATION bin)
+install(TARGETS directedpseudograph RUNTIME DESTINATION bin)
 
 add_subdirectory(include)
 

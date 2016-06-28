@@ -120,7 +120,13 @@ int main(int argc, char **argv) {
 	graph.addVertex(son, dad, Node(2));
 	
 	std::cout << "3 Node : " << graph.getNumVertices() << std::endl;
+	if(graph.getNumVertices() != 3){
+		std::cout << "Not the good number of vertices" << std::endl;
+	}
 	std::cout << "2 Edges : " << graph.getNumEdges() << std::endl;
+	if(graph.getNumEdges() != 2){
+		std::cout << "Not the good number of edges" << std::endl;
+	}
 	
 	std::ofstream out("bob.txt");
 	graph.write(out);
@@ -129,12 +135,25 @@ int main(int argc, char **argv) {
 	
 	std::cout << "0 Node : " << graph.getNumVertices() << std::endl;
 	std::cout << "0 Edges : " << graph.getNumEdges() << std::endl;
+	if(graph.getNumVertices() != 0){
+		std::cout << "Not the good number of vertices" << std::endl;
+	}
+	if(graph.getNumEdges() != 0){
+		std::cout << "Not the good number of edges" << std::endl;
+	}
 	
 	std::ifstream in("bob.txt");
 	graph.read(in);
 	
 	std::cout << "3 Node : " << graph.getNumVertices() << std::endl;
 	std::cout << "2 Edges : " << graph.getNumEdges() << std::endl;
+	if(graph.getNumVertices() != 3){
+		std::cout << "Not the good number of vertices" << std::endl;
+	}
+	std::cout << "2 Edges : " << graph.getNumEdges() << std::endl;
+	if(graph.getNumEdges() != 2){
+		std::cout << "Not the good number of edges" << std::endl;
+	}
 	
 	std::ofstream outt("bob2.txt");
 	graph.write(outt);
@@ -162,6 +181,13 @@ int main(int argc, char **argv) {
 	
 	std::cout << "3 Node : " << graph.getNumVertices() << std::endl;
 	std::cout << "2 Edges : " << graph.getNumEdges() << std::endl;
+	if(graph.getNumVertices() != 3){
+		std::cout << "Not the good number of vertices" << std::endl;
+	}
+	std::cout << "2 Edges : " << graph.getNumEdges() << std::endl;
+	if(graph.getNumEdges() != 2){
+		std::cout << "Not the good number of edges" << std::endl;
+	}
 	
 	for(int y = 0 ; y < 3 ;y++){
 		//malloc the 'x' dimension

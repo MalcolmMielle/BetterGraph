@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "SimpleGraph.hpp"
+#include "DirectedPseudoGraph.hpp"
 #include "HypotheseComparable.hpp"
 #include "MatchComparable.hpp"
 
@@ -97,30 +97,26 @@ std::ostream& operator<<(std::ostream& in, const EdgeAttr* p){
 int main(int argc, char **argv) {
     std::cout << "Hello, world!" << std::endl;
     
-	bettergraph::SimpleGraph<Node, EdgeAttr> graph;
-	
-	typedef boost::adjacency_list<
-		boost::listS, boost::listS, boost::undirectedS, 
-		Node,
-		EdgeAttr, 
-		boost::no_property > GraphType;
+	bettergraph::DirectedPseudoGraph<Node, EdgeAttr> graph;
+
 // 	typedef typename boost::graph_traits<GraphType>::vertex_iterator VertexIterator;
-	typedef typename boost::graph_traits<GraphType>::vertex_descriptor Vertex;
-	typedef typename boost::graph_traits<GraphType>::edge_descriptor Edge;
+	typedef bettergraph::DirectedPseudoGraph<Node, EdgeAttr>::Vertex VertexDirected;
+	typedef bettergraph::DirectedPseudoGraph<Node, EdgeAttr>::Edge EdgeDirected;
 // 	typedef typename boost::graph_traits<GraphType>::out_edge_iterator EdgeIterator;
 	
-	Vertex dad;
-	Vertex son;
+	VertexDirected dad;
+	VertexDirected son;
 	EdgeAttr edd(55);
 	graph.addVertex(dad, Node());
 	graph.addVertex(son, dad, Node(1), edd);
-	Edge eddgee;
-	graph.getEdge(dad, son, eddgee);
+	EdgeDirected eddgee;
+	graph.getEdge(son, dad, eddgee);
+	std::cout << "2 Node : " << graph.getNumVertices() << std::endl;
+	std::cout << "1 Edges : " << graph.getNumEdges() << std::endl;
 	std::cout << "Edge value " << graph[eddgee] << std::endl;
 	graph.addVertex(son, dad, Node(2));
 	
 	std::cout << "3 Node : " << graph.getNumVertices() << std::endl;
-	std::cout << "2 Edges : " << graph.getNumEdges() << std::endl;
 	if(graph.getNumVertices() != 3){
 		std::cout << "Not the good number of vertices" << std::endl;
 	}
@@ -129,7 +125,7 @@ int main(int argc, char **argv) {
 		std::cout << "Not the good number of edges" << std::endl;
 	}
 	
-	std::ofstream out("bob.txt");
+	std::ofstream out("bobdirected.txt");
 	graph.write(out);
 	
 	graph.clear();
@@ -143,7 +139,7 @@ int main(int argc, char **argv) {
 		std::cout << "Not the good number of edges" << std::endl;
 	}
 	
-	std::ifstream in("bob.txt");
+	std::ifstream in("bobdirected.txt");
 	graph.read(in);
 	
 	std::cout << "3 Node : " << graph.getNumVertices() << std::endl;
@@ -156,7 +152,7 @@ int main(int argc, char **argv) {
 		std::cout << "Not the good number of edges" << std::endl;
 	}
 	
-	std::ofstream outt("bob2.txt");
+	std::ofstream outt("bob2directed.txt");
 	graph.write(outt);
 	
 	graph.clear();
@@ -229,7 +225,7 @@ int main(int argc, char **argv) {
 	
 	/*** Trying pointers***/
 	
-	bettergraph::SimpleGraph<Node*, EdgeAttr*> graphP;
+	bettergraph::DirectedPseudoGraph<Node*, EdgeAttr*> graphP;
 	
 	typedef boost::adjacency_list<
 		boost::listS, boost::listS, boost::undirectedS, 
@@ -238,10 +234,11 @@ int main(int argc, char **argv) {
 		boost::no_property > GraphTypeP;
 // 	typedef typename boost::graph_traits<GraphTypeP>::vertex_iterator VertexIteratorP;
 	typedef typename boost::graph_traits<GraphTypeP>::vertex_descriptor VertexP;
-	typedef typename boost::graph_traits<GraphTypeP>::edge_descriptor EdgeP;
+// 	typedef typename boost::graph_traits<GraphTypeP>::edge_descriptor EdgeP;
 // 	typedef typename boost::graph_traits<GraphTypeP>::out_edge_iterator EdgeIteratorP;
 	
-	VertexP dadp;
+// 	bettergraph::VertexPseudo<Node, EdgeAttr> dadp;
+	bettergraph::DirectedPseudoGraph<Node, EdgeAttr>::Vertex dadp;
 	VertexP sonp;
 	Node* n = new Node();
 	Node* n1 = new Node(3);
@@ -249,21 +246,20 @@ int main(int argc, char **argv) {
 	graphP.addVertex(dadp, n);
 	EdgeAttr* ed = new EdgeAttr();
 	graphP.addVertex(sonp, dadp, n1, ed);
-	try{
-		EdgeP edgg;
-		graphP.addEdge(edgg, dadp, dadp);
-	}
-	catch(std::runtime_error& e){
-		std::cout << e.what() << std::endl;
-	}
 	graphP.addVertex(sonp, dadp, n3);
 	
 	std::ofstream outtt("bob3.txt");
 	graphP.write(outtt);
 	
+	std::pair<bettergraph::DirectedPseudoGraph<Node, EdgeAttr>::VertexIterator, bettergraph::DirectedPseudoGraph<Node, EdgeAttr>::VertexIterator> vp;
+	std::vector<bettergraph::DirectedPseudoGraph<Node, EdgeAttr>::Vertex> vec;
+	//vertices access all the vertix
+	//Classify them in order
+	for (vp = boost::vertices(graphP); vp.first != vp.second; ++vp.first) {
+		bettergraph::DirectedPseudoGraph<Node, EdgeAttr>::Vertex v = *vp.first;
+		std::cout << graphP[v] << std::endl;
+	}
 	
-	graphP.print();
-
     
     return 0;
 	
