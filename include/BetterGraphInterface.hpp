@@ -293,6 +293,11 @@ Vertex& loop_index, const Vertex& index)
 			EdgeListS >::getEdge(const Vertex& v1, 
 const Vertex& v2, Edge& edge_out){
 		edge_out = boost::edge(v1, v2, (*this)).first;
+		
+		if(boost::edge(v1, v2, (*this)).second == false){
+			throw std::runtime_error("Edge does not exist");
+		}
+		
 		return boost::edge(v1, v2, (*this)).second;
 	}
 		
@@ -453,6 +458,7 @@ vec[j], (*this)).first] << std::endl;
 			EdgeListS >::write(std::ostream& out){
 		std::pair<VertexIterator, VertexIterator> vp;
 		std::vector<Vertex> vec;
+		std::vector<Edge> edges;
 		//vertices access all the vertix
 		//Classify them in order
 		int i = 0;
@@ -462,18 +468,50 @@ vec[j], (*this)).first] << std::endl;
 			vec.push_back(v);
 			write(out, i, (*this)[v]);
 			++i;
-		}
-		
+			
+			//Getting all edges
+			EdgeIterator out_i, out_end;
+			Edge e;
+			for (boost::tie(out_i, out_end) = boost::out_edges(v, (*this)); 
+				out_i != out_end; ++out_i) {
+				e = *out_i;
+				bool saved = false;
+				for(size_t ju = 0 ; ju < edges.size() ; ++ju){
+					if(e == edges[ju]){
+						saved = true;
+					}
+				}
+				if(saved == false){
+					edges.push_back(e);
+				}
+			}
+			
+		}		
 		for(size_t i = 0 ; i < vec.size() ; ++i){
-			out << getNumEdges(vec[i]) << std::endl;
+			
+			std::deque<std::pair<int, Edge> > edge_to_write;
 			for(size_t j = 0 ; j < vec.size() ; ++j){
 				
 				bool exist = boost::edge(vec[i], vec[j], (*this)).second;
 				if(exist == true){
-					out << i << " " << j << " " << (*this)[boost::edge(vec[i], 
-vec[j], (*this)).first] << std::endl;
+					
+					bool written = true;
+					for(size_t ju = 0 ; ju < edges.size() ; ++ju){
+						if(boost::edge(vec[i], vec[j], (*this)).first == edges[ju]){
+							edges.erase(edges.begin() + ju);
+							written = false;
+						}
+					}
+					if(written == false){
+						edge_to_write.push_back(std::pair<int, Edge>(j, boost::edge(vec[i], vec[j], (*this)).first));
+					}
 				}
 			}
+			out << edge_to_write.size() << std::endl;
+			for(size_t c = 0 ; c < edge_to_write.size() ; ++c){
+				out << i << " " << edge_to_write[c].first << " " << (*this)[edge_to_write[c].second] << std::endl;
+			}
+			
 		}
 		
 	}
