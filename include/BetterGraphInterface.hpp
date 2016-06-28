@@ -59,11 +59,11 @@ EdgeIterator;
 		
 		/** @brief Add edge with an edge attribute between lopp index and index 
 */
-		virtual bool addEdge(Edge& out, const Vertex& loop_index, const Vertex& index, 
+		virtual bool addEdge(Edge& out, const Vertex& origin, const Vertex& destination, 
 const EdgeProperty& edgeAttribute);
 		/** @brief Add edge with default attribute between lopp index and index 
 or no attribute if the attribute is a pointer*/
-		virtual bool addEdge(Edge& out, const Vertex& loop_index, const Vertex& index);
+		virtual bool addEdge(Edge& out, const Vertex& origin, const Vertex& destination);
 
 		///@brief Add vertex linked to the vertex dad to the graph
 		virtual void addVertex(Vertex& vertex_out, const Vertex& dad, const VertexProperty& 
@@ -88,7 +88,7 @@ nodeAttribute, const EdgeProperty& edgeAttribute);
 		/**
 		* @brief Get edge between v1 and v2
 		*/
-		bool getEdge(const Vertex& v1, const Vertex& v2, Edge& edge_out);
+		bool getEdge(const Vertex& origin, const Vertex& destination, Edge& edge_out);
 			
 		/**
 		* @brief Get all the vertex linked to one vertex
@@ -242,9 +242,9 @@ edgeAttribute)
 			EdgeProperty,
 			GraphProperty, 
 			EdgeListS >::addEdge(Edge& out, const 
-Vertex& loop_index, const Vertex& index, const EdgeProperty& edgeAttribute)
+Vertex& origin, const Vertex& destination, const EdgeProperty& edgeAttribute)
 	{
-		out = boost::add_edge(loop_index, index , edgeAttribute, (*this)).first;
+		out = boost::add_edge(origin, destination , edgeAttribute, (*this)).first;
 // 		(*this)[out] = edgeAttribute;
 		return true;
 	}
@@ -264,10 +264,10 @@ Vertex& loop_index, const Vertex& index, const EdgeProperty& edgeAttribute)
 			EdgeProperty,
 			GraphProperty, 
 			EdgeListS >::addEdge(Edge& out, const 
-Vertex& loop_index, const Vertex& index)
+Vertex& origin, const Vertex& destination)
 	{
 // 		std::cout << "PSEUDO GRAPH ADD" << std::endl;
-		out = boost::add_edge(loop_index, index , (*this)).first;
+		out = boost::add_edge(origin, destination , (*this)).first;
 		return true;
 		
 	}
@@ -290,15 +290,15 @@ Vertex& loop_index, const Vertex& index)
 			VertexProperty,
 			EdgeProperty,
 			GraphProperty, 
-			EdgeListS >::getEdge(const Vertex& v1, 
-const Vertex& v2, Edge& edge_out){
-		edge_out = boost::edge(v1, v2, (*this)).first;
+			EdgeListS >::getEdge(const Vertex& origin, 
+const Vertex& destination, Edge& edge_out){
+		edge_out = boost::edge(origin, destination, (*this)).first;
 		
-		if(boost::edge(v1, v2, (*this)).second == false){
+		if(boost::edge(origin, destination, (*this)).second == false){
 			throw std::runtime_error("Edge does not exist");
 		}
 		
-		return boost::edge(v1, v2, (*this)).second;
+		return boost::edge(origin, destination, (*this)).second;
 	}
 		
 	template <typename OutEdgeListS, // a Sequence or an AssociativeContainer
