@@ -563,7 +563,7 @@ vec[j], (*this)).first] << std::endl;
 				EdgeProperty et;
 				in >> et;
 				Edge e;
-				addEdge(e, vec[index], vec[index2]);
+				addEdge(e, vec[index], vec[index2], et);
 			}
 		}
 
