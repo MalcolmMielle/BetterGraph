@@ -177,12 +177,12 @@ int main(int argc, char **argv) {
 	graph.read(matrix, 3);
 	
 	std::cout << "3 Node : " << graph.getNumVertices() << std::endl;
-	std::cout << "2 Edges : " << graph.getNumEdges() << std::endl;
-	if(graph.getNumVertices() != 3){
+	std::cout << "4 Edges : " << graph.getNumEdges() << std::endl;
+	if(graph.getNumVertices() != 4){
 		std::cout << "Not the good number of vertices" << std::endl;
 	}
-	std::cout << "2 Edges : " << graph.getNumEdges() << std::endl;
-	if(graph.getNumEdges() != 2){
+	std::cout << "4 Edges : " << graph.getNumEdges() << std::endl;
+	if(graph.getNumEdges() != 4){
 		std::cout << "Not the good number of edges" << std::endl;
 	}
 	
