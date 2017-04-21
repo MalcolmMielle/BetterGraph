@@ -3,6 +3,7 @@
 #include "PseudoGraph.hpp"
 #include "HypotheseComparable.hpp"
 #include "MatchComparable.hpp"
+#include "conversion.hpp"
 
 
 
@@ -262,6 +263,11 @@ int main(int argc, char **argv) {
 		bettergraph::PseudoGraph<Node, EdgeAttr>::Vertex v = *vp.first;
 		std::cout << graphP[v] << std::endl;
 	}
+	
+	bettergraph::SimpleGraph<Node*, EdgeAttr*> graphS;
+	bettergraph::toSimpleGraph<Node*, EdgeAttr*>(graphP, graphS);
+	assert(graphP.getNumEdges() == graphS.getNumEdges());
+	assert(graphP.getNumVertices() == graphS.getNumVertices());
 	
     
     return 0;
