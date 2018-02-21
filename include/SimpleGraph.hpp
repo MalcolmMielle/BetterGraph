@@ -51,6 +51,7 @@ namespace bettergraph{
 	 * 							ADD EDGE
 	 * ***************************************************************/
 	
+	/**@brief always modify the edge */
 	template<typename VertexType, typename EdgeType>
 	inline bool SimpleGraph<VertexType, EdgeType>::addEdge(Edge& out, const Vertex& loop_index, const Vertex& index, const EdgeType& edgeAttribute)
 	{
